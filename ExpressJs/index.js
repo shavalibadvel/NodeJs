@@ -1,8 +1,7 @@
 
 const express=require('express');
 
-const { HomeResponse } = require('./Controllers/HomeResponse');
-const { InfoResponse } = require('./Controllers/InfoResponse');
+const { HomeResponse,InfoResponse } = require('./Controllers/HomeResponse');
 const server=express();
 const port=8035;
 
@@ -10,7 +9,14 @@ const port=8035;
 server.get('/',HomeResponse);
 server.get('/home',HomeResponse);
 server.get('/info',InfoResponse);
-
+server.get('/users',(req,res)=>{
+    const data={
+        name:"Shavali",
+        age:22,
+        gender:"Male"   
+    }
+    res.send(data);
+})
 server.listen(port,()=>{   
     console.log(`Server is running on port ${port}`);
 });
