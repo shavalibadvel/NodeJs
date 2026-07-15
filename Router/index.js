@@ -1,10 +1,12 @@
 
 const express=require('express');
-const { HomeResponse, InfoResponse } = require('./Controller/HomeController.js');
 const server=express();
 const port=8035;
 const ActivityRouter=require('./Routes/ActivityRoute.js');const { GetAllUsers,GetUsersByGender, GetUserByFirstName } = require('./Controller/ActivityUserController.js');
+
 const HomeRouter=require('./Routes/HomeRoute.js');
+
+require('dotenv').config();
 //only get method for home page
 server.use('/',HomeRouter);
 server.use('/api/v1/users/',ActivityRouter);

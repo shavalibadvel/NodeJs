@@ -1,9 +1,11 @@
 const express=require('express');
 const router=express.Router();
 const { GetAllUsers,GetUsersByGender, GetUserByFirstName } = require('../Controller/ActivityUserController.js');
-router.get('/getAllUsers',GetAllUsers);
+const { passwordAuthMiddleware } = require('../Middleware/passwordAuthMiddleware.js');
+//router.get('/getAllUsers',passwordAuthMiddleware,GetAllUsers);
+router.get('/getAllUsers', passwordAuthMiddleware,GetAllUsers);
+router.get('/getUsersByGender',passwordAuthMiddleware,GetUsersByGender);
 
-router.get('/getUsersByGender',GetUsersByGender);
+router.get('/getUserByFirstName/:firstName',passwordAuthMiddleware,GetUserByFirstName);
 
-router.get('/getUserByFirstName/:firstName',GetUserByFirstName);
 module.exports=router;
