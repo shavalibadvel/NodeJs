@@ -18,15 +18,15 @@ function getAllBlogs(req, res) {
 }
 
 function getBlogById(req, res) {
-//   const { id } = req.params;
-//   Blog.findById(id)
-//     .then(blog => {
-//       if (!blog) {
-//         return res.status(404).json({ error: 'Blog not found' });
-//       }
-//       res.status(200).json(blog);
-//     })
-//     .catch(err => res.status(500).json({ error: err.message }));
+  const { id } = req.params;
+  Blog.findById(id)
+    .then(blog => {
+      if (!blog) {
+        return res.status(404).json({ error: 'Blog not found' });
+      }
+      res.status(200).json(blog);
+    })
+    .catch(err => res.status(500).json({ error: err.message }));
 }
 
 function updateBlogById(req, res) {
