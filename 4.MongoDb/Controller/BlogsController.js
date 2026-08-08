@@ -43,15 +43,15 @@ function updateBlogById(req, res) {
 }
 
 function deleteBlogById(req, res) {
-//   const { id } = req.params;
-//   Blog.findByIdAndDelete(id)
-//     .then(blog => {
-//       if (!blog) {
-//         return res.status(404).json({ error: 'Blog not found' });
-//       }
-//       res.status(204).send();
-//     })
-//     .catch(err => res.status(500).json({ error: err.message }));
+  const { id } = req.params;
+  Blog.findByIdAndDelete(id)
+    .then(blog => {
+      if (!blog) {
+        return res.status(404).json({ error: 'Blog not found' });
+      }
+      res.status(204).send();
+    })
+    .catch(err => res.status(500).json({ error: err.message }));
 }
 
 module.exports = {
