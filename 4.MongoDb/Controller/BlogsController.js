@@ -12,9 +12,9 @@ async function createBlog(req, res) {
 }
 
 function getAllBlogs(req, res) {
-//   Blog.find()
-//     .then(blogs => res.status(200).json(blogs))
-//     .catch(err => res.status(500).json({ error: err.message }));
+  Blog.find()
+    .then(blogs => res.status(200).json(blogs))
+    .catch(err => res.status(500).json({ error: err.message }));
 }
 
 function getBlogById(req, res) {
