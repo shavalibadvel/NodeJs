@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const Blog = require('../Models/blogsModel.js');
 async function createBlog(req, res) {
     console.log("printing of blog body",req.body);
@@ -14,16 +15,20 @@ async function createBlog(req, res) {
 async function getAllBlogs(req, res) {
   try {
     const blogs = await Blog.find();
-    res.status(200).json(blogs);
+    const payload={
+      blogs:blogs,
+      count:blogs.length
+    }
+    res.status(200).json(payload);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
 
 async function getBlogById(req, res) {
-  const { id } = req.params;
+  const id = req.params.id; 
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.find({ _id: id });
     if (!blog) {
       return res.status(404).json({ error: 'Blog not found' });
     }
