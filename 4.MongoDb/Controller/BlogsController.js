@@ -11,47 +11,53 @@ async function createBlog(req, res) {
   }
 }
 
-function getAllBlogs(req, res) {
-  Blog.find()
-    .then(blogs => res.status(200).json(blogs))
-    .catch(err => res.status(500).json({ error: err.message }));
+async function getAllBlogs(req, res) {
+  try {
+    const blogs = await Blog.find();
+    res.status(200).json(blogs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
 
-function getBlogById(req, res) {
+async function getBlogById(req, res) {
   const { id } = req.params;
-  Blog.findById(id)
-    .then(blog => {
-      if (!blog) {
-        return res.status(404).json({ error: 'Blog not found' });
-      }
-      res.status(200).json(blog);
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
+  try {
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+    res.status(200).json(blog);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
 
-function updateBlogById(req, res) {
+async function updateBlogById(req, res) {
   const { id } = req.params;
   const { title, content, author, nationality } = req.body;
-  Blog.findByIdAndUpdate(id, { title, content, author, nationality }, { new: true })
-    .then(blog => {
-      if (!blog) {
-        return res.status(404).json({ error: 'Blog not found' });
-      }
-      res.status(200).json(blog);
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
+  try {
+    const blog = await Blog.findByIdAndUpdate(id, { title, content, author, nationality }, { new: true });
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+    res.status(200).json(blog);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
 
-function deleteBlogById(req, res) {
+async function deleteBlogById(req, res) {
   const { id } = req.params;
-  Blog.findByIdAndDelete(id)
-    .then(blog => {
-      if (!blog) {
-        return res.status(404).json({ error: 'Blog not found' });
-      }
-      res.status(204).send();
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
+  try {
+    const blog = await Blog.findByIdAndDelete(id);
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
 
 module.exports = {
