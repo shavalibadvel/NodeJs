@@ -4,7 +4,7 @@ const mongoose=require('mongoose');
 const server=express();
 const port=8035;
 const ActivityRouter=require('./Routes/ActivityRoute.js');
-
+const UserRoute=require('./Routes/UserRoute.js');
 const HomeRouter=require('./Routes/HomeRoute.js');
 const BlogsRouter=require('./Routes/BlogsRouter.js');
 const uri="mongodb://localhost:27017/"
@@ -22,6 +22,7 @@ server.use(express.json());
 server.use('/',HomeRouter);
 server.use('/api/v1/users/',ActivityRouter);
 server.use('/api/v1/blogs/',BlogsRouter);
+server.use("/api/v1/users/",UserRoute);
 server.listen(port,()=>{   
     console.log(`Server is running on port ${port}`);
 });

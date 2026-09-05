@@ -8,8 +8,10 @@ const blogSchema = new mongoose.Schema({
     required: true,
     trim: true,
     minlength: [5, 'Title must be at least 5 characters long'],
-    validate: (data) => {
-      return validatorLib.isAlphanumeric(data)
+    validate: {validator: function(v) {
+        // Allows letters, numbers, and spaces
+        return /^[a-zA-Z0-9\s]+$/.test(v);
+      },
     }
   },
   content: {
@@ -18,8 +20,9 @@ const blogSchema = new mongoose.Schema({
     trim: true,
   },
   author: {
-    type: String,
-    trim: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   nationality: {
     type: String,
