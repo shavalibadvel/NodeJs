@@ -2,7 +2,7 @@ const User=require('../Models/userModel.js');
 async function createUser(req,res) {
    const user = req.body;
    const { firstName, lastName, email, age, gender } = user;
-    //and also irougbfjvdnbfh98euwidhjrfjdsjsdhgfisu
+    //and also irougbfjvdnbfh98euwidhjrfjdsjsdhgfisu fejthfkjugyfhdjngdfh
    const userObj=User({
 
     firstName:firstName,
