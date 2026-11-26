@@ -1,48 +1,32 @@
-const http = require('node:http');
+const express=require('express');
+const { default: userData } = require('./userData');
+const server=express();
+const PORT=8035;
+server.get('/',(req,res)=>{
+    res.send('This is Home Page');
 
-const server = http.createServer((req, res) => {
-    if (req.url === '/favicon.ico') {
-        res.writeHead(204);
-        res.end();
-        return;
-    }
-
-    console.log("server created for:", req.url);
-
-    if (req.url === '/') {
-        res.write("Hello world. This is home page");
-    }
-    else if (req.url === '/about') {
-        res.write("Hello world. This is about page");
-    }
-    else if (req.url === '/contact') {
-        res.write("Hello world. This is contact page");
-    }
-    else if (req.url === '/data') {
-        const data = {
-            name: "shavali",
-            age: 22,
-            hobbies: ["coding", "reading", "watching movies"],
-            address: {
-                city: "kadapa",
-                state: "Andhra Pradesh",
-                country: "India",
-                pincode: 516001
-            },
-            isSleeping8hours: true,
-        };
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(data));
-        return; 
-    }
-    else {
-        res.write("Hello world. This is 404 page");
-    }
-
-    res.end(); 
+});
+server.get('/about',(req,res)=>{
+    res.send('This is About Page');
 });
 
-const PORT = 8035;
-server.listen(PORT, () => {
-    console.log(`server is running on port ${PORT}`);
+server.get('/contact',(req,res)=>{
+    res.send('This is Contact Page');
+});
+server.get("/fitness"   ,(req,res)=>{
+    const reqType=req.baseUrl
+    console.log(reqType);
+    
+    const metadata={
+        version:"1.0.0",
+        about:"This API provides information about fitness and its benefits.",
+        data:userData,
+        size:userData.length,
+        'content-type':'application/json'
+    }
+    //res.send(JSON.stringify(metadata));
+    res.json(metadata);
+});
+server.listen(PORT,()=>{
+    console.log(`Server is running on port ${PORT}`);
 });
