@@ -7,6 +7,7 @@ const blogInputValidator = require('../Middleware/blogInputValidation.js');
 // Create a new blog
 router.post('/createBlog',blogInputValidator,  createBlog);
 
+
 // Get all blogs
 router.get('/', getAllBlogs);
 
@@ -14,7 +15,8 @@ router.get('/', getAllBlogs);
 router.get('/blog/:id', getBlogById);
 
 // Update a blog by ID
-router.put('/blog/:id',updateBlogById);
+router.put('/blog/:id',blogInputValidator, updateBlogById);
+
 
 // Delete a blog by ID
 router.delete('/blog/:id', deleteBlogById);
